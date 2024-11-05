@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+option csharp_namespace = "ToDoGrpc";
+
+import "google/api/annotations.proto";
+
+package todoit;
+
+//Define Service 
+service ToDoIt {
+  
+  // Create endpoint
+   rpc CreateToDo(CreateToDoRequest)
+      returns (CreateToDoResponse){
+     option(google.api.http)={
+       post:"/v1/todo",
+       body:"*"
+     };
+   }
+  // Read Single Endpoint
+   rpc ReadToDo(ReadToDoRequest)
+      returns (ReadToDoResponse){
+     option(google.api.http)={
+       get:"/v1/todo/{id}"
+     };
+   }
+  //Read Lists
+    rpc ReadListToDo(GetAllRequest)
+        returns (GetAllResponse){
+     option(google.api.http)={
+       get:"/v1/todo"
+     };
+    }
+  // Update endpoint
+  rpc UpdateToDo(UpdateToDoRequest)
+      returns (UpdateToDoResponse){
+    option(google.api.http)={
+      put:"/v1/todo",
+      body:"*"
+    };
+  }
+  // Delete endpoint
+  rpc DeleteToDo(DeleteToDoRequest)
+      returns (DeleteToDoResponse){
+    option(google.api.http)={
+      delete:"/v1/todo/{id}"
+    };
+  }
+}
+
+// Request for Create To DO
+message CreateToDoRequest{
+  string title =1;
+  string description =2;
+}
+// Response for Create To DO
+message CreateToDoResponse{
+  int32  id =1;
+}
+
+// Request for Read Single
+
+message  ReadToDoRequest{
+  int32 id = 1;
+}
+
+// Response for Read single
+
+message ReadToDoResponse{
+  int32 id = 1;
+  string title = 2;
+  string description = 3;
+  string to_do_status = 4;
+}
+
+// Request for get All Request
+message GetAllRequest{
+  
+}
+// Response for get All Response
+message GetAllResponse{
+  repeated ReadToDoResponse to_do = 1;
+}
+
+//Request for Update To Do
+message UpdateToDoRequest{
+  int32 id = 1;
+  string title = 2;
+  string description = 3;
+  string to_do_status = 4;
+}
+
+message UpdateToDoResponse{
+  int32 id =1;
+}
+
+message DeleteToDoRequest{
+  int32 id =1;
+}
+message DeleteToDoResponse{
+  int32 id =1 ;
+}

@@ -1,0 +1,6 @@
+/ToDoDatabase.db-shm
+/ToDoDatabase.db-wal
+/Migrations/
+/.idea/
+/bin/
+/obj/
